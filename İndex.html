@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>El Fotoğrafı ile Tırnak Analizi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff0f5;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    /* Kayan banner */
+    .banner {
+      background: #ff66a3;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      padding: 10px 0;
+      font-weight: bold;
+      font-size: 18px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    .banner span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    h1 {
+      margin-top: 60px; /* banner yer açsın */
+      font-size: 2rem;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #ffb6c1;
+      background: #fff0f5;
+      cursor: pointer;
+    }
+    img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(204, 51, 102, 0.3);
+    }
+    .result {
+      background: #fff0f5;
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(204, 51, 102, 0.2);
+      font-size: 1.1rem;
+      color: #cc3366;
+      font-weight: 600;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .instagram-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #E1306C;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+    .instagram-btn:hover {
+      background: #b02754;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    <span>💅 %20 Yaz İndirimi! Bizi Instagram’dan takip et: @renklidokunusnail 🎁 Randevu için DM 📩</span>
+  </div>
+
+  <h1>✨ Eline Özel Tırnak Önerisi</h1>
+  <p>El fotoğrafını yükle, sana özel tırnak yapısı ve renk önerimizi al!</p>
+
+  <input type="file" accept="image/*" id="upload" />
+
+  <img id="preview" alt="Yüklenen El Fotoğrafı" />
+
+  <div class="result" id="result" style="display:none;"></div>
+
+  <a href="https://www.instagram.com/renklidokunusnail" target="_blank" class="instagram-btn">📷 Instagram'da Bizi Takip Et</a>
+
+  <script>
+    const upload = document.getElementById('upload');
+    const preview = document.getElementById('preview');
+    const result = document.getElementById('result');
+
+    upload.addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        showAnalysis();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function showAnalysis() {
+      const analyses = [
+        {
+          yapi: "Tırnaklarınız narin ve zarif, hafif oval formda protez tırnaklar çok yakışır.",
+          renk: "Açık nude, soft pembe ya da şeffaf krom tonları önerilir.",
+          protez: "French detaylı kısa oval protez tırnak tercih edebilirsiniz."
+        },
+        {
+          yapi: "Tırnaklarınız güçlü ama mat görünüyor, parlak kalıcı oje önerilir.",
+          renk: "Sedefli gül kurusu veya pudra pembe tonları çok güzel olur.",
+          protez: "Tips protez tırnaklar ellerinizde çok şık duracaktır."
+        },
+        {
+          yapi: "Tırnaklarınız kısa ve yatay yapıda, soft beyaz ve pudra kombinasyonu harika.",
+          renk: "French stili ile harika bir uyum sağlar.",
+          protez: "Şablon sistem ile tırnaklarınızı uzun gösterebilirsiniz."
+        },
+        {
+          yapi: "Tırnak yapınız ince ve zarif, minimal ve şık tasarımlar tam size göre.",
+          renk: "Pastel tonlar ve açık pembe renkler önerilir.",
+          protez: "Kapsül sistem protez tırnaklar çok doğal durur."
+        }
+      ];
+
+      const secim = analyses[Math.floor(Math.random() * analyses.length)];
+
+      result.innerHTML = `
+        <h2>Analiz Sonucu</h2>
+        <p><strong>Tırnak Yapısı:</strong> ${secim.yapi}</p>
+        <p><strong>Önerilen Renk:</strong> ${secim.renk}</p>
+        <p><strong>Protez Önerisi:</strong> ${secim.protez}</p>
+        <p style="margin-top: 15px; color: #d63384; font-weight: bold;">
+          Elleriniz çok güzel, doğru renk ve şekil ile mükemmelliği yakalayabilirsiniz! ✨
+        </p>
+      `;
+      result.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
